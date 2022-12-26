@@ -3,12 +3,13 @@
 const prompt = require('prompt')
 const copydir = require('copy-dir')
 const fs = require('fs')
-
+const fs2 = require('fs2')
 prompt.start()
 
 prompt.get(
     [
         {
+            
             name: 'package',
             description: 'Plugin Name',
             type: 'string',
@@ -37,7 +38,10 @@ prompt.get(
         let pkgName = result.package.replace(/\s/g, '').toLowerCase()
 
         let dir = `${process.cwd()}/packages/${pkgName}`
-
+if (!fs2.existsSync(dir)) {
+            console.log('Writing directory')
+            fs.mkdirSync(dir)
+}
         if (!fs.existsSync(dir)) {
             console.log('Writing directory')
             fs.mkdirSync(dir)
